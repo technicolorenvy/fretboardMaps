@@ -5,7 +5,9 @@ const notes = require('./notes.json');
 const isNaturalRegex = /b|#/;
 
 // let stubKey = 'C#';
-let stubKey = 'G#';
+// let stubKey = 'G#';
+// let stubKey = 'Gb';
+let stubKey = 'B';
 let stubColor = 'major';
 
 let reOrgArray = (cutIdx, arr) => {
@@ -50,35 +52,48 @@ let getKey = (cKey, color) => {
 
         v.target = reOrdAlpha[i];
         if (aIdx < 0) {
-          console.log('reOrdNotes[i-1]')
-          console.log(reOrdNotes[i-1])
-          console.log(v)
-
           v.usePrior = true;
-          v.priorTitle = reOrdNotes[i-1].title;
-
-          
+          v.priorTitle = reOrdNotes[i-1].title;        
         }
 
         return v;
       })
       .map((v, i) => {
         let aIdx,
+            title,
+            priorTitle,
+            priorId,
+            isEquivalent,
             vKey = (v.usePrior)
                  ? 'priorTitle'
                  : 'title';
 
-        aIdx = v[vKey].indexOf(reOrdAlpha[i]);
+        aIdx = v[vKey].indexOf(reOrdAlpha[i]);                            
+        title = (!v[vKey].match(isNaturalRegex))
+          ? v[vKey][aIdx]
+          : v[vKey][aIdx] + v[vKey][aIdx+1]; 
         
-        if (!~aIdx) {
-          v.title = v.target+'b';
-        } else {     
-          console.log(v)          
-          // console.log(v[vKey])             
-          v.title = (!v[vKey].match(isNaturalRegex))
-            ? v[vKey][aIdx]
-            : v[vKey][aIdx] + v[vKey][aIdx+1];          
+          if (reOrdNotes[i-1]) {
+          priorTitle = reOrdNotes[i-1].title;
+          priorId = reOrdNotes[i-1].id;
         }
+        
+        isEquivalent = (`${priorTitle}/${title}` === v.priorTitle)
+        if (isEquivalent) {
+          title = v.target;
+          if (Math.abs(v.id - priorId) == 2) {
+            title += '#';
+          }
+        } else {
+          if (v.priorTitle && !v.priorTitle.match(v.target)) {
+            title = v.target;
+            if (Math.abs(v.id - priorId) == 1) {
+              title += 'b';
+            }              
+          }
+        }
+
+        v.title = title;
 
         delete v.usePrior;
         delete v.priorTitle; 
