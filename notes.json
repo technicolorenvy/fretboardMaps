@@ -1,0 +1,62 @@
+[
+  {
+    "id": 0,
+    "title": "A",
+    "isNatural": true
+  },
+  {
+    "id": 1,
+    "title": "A#/Bb",
+    "isNatural": false
+  },
+  {
+    "id": 2,
+    "title": "B",
+    "isNatural": true
+  },
+   {
+    "id": 3,
+    "title": "C",
+    "isNatural": true
+  },
+  {
+    "id": 4,
+    "title": "C#/Db",
+    "isNatural": false
+  },
+  {
+    "id": 5,
+    "title": "D",
+    "isNatural": true
+  },
+  {
+    "id": 6,
+    "title": "D#/Eb",
+    "isNatural": false
+  },
+  {
+    "id": 7,
+    "title": "E",
+    "isNatural": true
+  },
+  {
+    "id": 8,
+    "title": "F",
+    "isNatural": true
+  },
+  {
+    "id": 9,
+    "title": "F#/Gb",
+    "isNatural": false
+  },
+  {                   
+    "id": 10,
+    "title": "G",
+    "isNatural": true
+  },
+  {
+    "id": 11,
+    "title": "G#/Ab",
+    "isNatural": false
+  }  
+]
