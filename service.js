@@ -4,10 +4,7 @@ const notes = require('./notes.json');
 
 const isNaturalRegex = /b|#/;
 
-// let stubKey = 'C#';
-// let stubKey = 'G#';
-// let stubKey = 'Gb';
-let stubKey = 'B';
+let stubKey = 'Db';
 let stubColor = 'major';
 
 let reOrgArray = (cutIdx, arr) => {
@@ -40,71 +37,60 @@ let getKey = (cKey, color) => {
       .filter((v, i) => {
         return !!~scale.indexOf(i+1);
       });
-    reOrdNotes[0].usePrior = true;
-    reOrdNotes[0].priorTitle = reOrdNotes[0].title;
-
-    reOrdNotes
+    reOrdNotes      
       .map((v, i) => {
-        let aIdx;
-                
-        aIdx = v.title
-          .indexOf(reOrdAlpha[i]);
+        let p,
+            t,
+            alphaIdx,
+            target,
+            formatted;
+        
+        // The target alpha note (A-G)
+        target = reOrdAlpha[i];
 
-        v.target = reOrdAlpha[i];
-        if (aIdx < 0) {
-          v.usePrior = true;
-          v.priorTitle = reOrdNotes[i-1].title;        
+        // grab a ref to the last entry if it exists
+        if (reOrdNotes[i-1]) {
+          p = reOrdNotes[i-1];
         }
 
-        return v;
-      })
-      .map((v, i) => {
-        let aIdx,
-            title,
-            priorTitle,
-            priorId,
-            isEquivalent,
-            vKey = (v.usePrior)
-                 ? 'priorTitle'
-                 : 'title';
-
-        aIdx = v[vKey].indexOf(reOrdAlpha[i]);                            
-        title = (!v[vKey].match(isNaturalRegex))
-          ? v[vKey][aIdx]
-          : v[vKey][aIdx] + v[vKey][aIdx+1]; 
-        
-          if (reOrdNotes[i-1]) {
-          priorTitle = reOrdNotes[i-1].title;
-          priorId = reOrdNotes[i-1].id;
-        }
-        
-        isEquivalent = (`${priorTitle}/${title}` === v.priorTitle)
-        if (isEquivalent) {
-          title = v.target;
-          if (Math.abs(v.id - priorId) == 2) {
-            title += '#';
-          }
+        // if the current target note is not found in the title
+        // look to the last entry
+        if (!~v.title.indexOf(target)) {
+          t = p;
         } else {
-          if (v.priorTitle && !v.priorTitle.match(v.target)) {
-            title = v.target;
-            if (Math.abs(v.id - priorId) == 1) {
-              title += 'b';
-            }              
-          }
+          t = v;
         }
+        
+        // rough out the formatted title
+        alphaIdx = t.title.indexOf(target);
+        formatted = (!t.title.match(isNaturalRegex))
+          ? t.title[alphaIdx]
+          : t.title[alphaIdx] + t.title[alphaIdx+1]; 
 
-        v.title = title;
-
-        delete v.usePrior;
-        delete v.priorTitle; 
-        delete v.target; 
-        delete v.isNatural;
-
+        if (p) {              
+          // check the prior title against prior and current formatted to 
+          // determine if we have already used a given note 
+          if (p.title === `${p.formatted}/${formatted}`) {
+            formatted = target;
+            if (Math.abs(v.id - p.id) == 2) {
+              formatted += '#';
+            }
+          } else {
+            if (!t.title.match(target)) {
+              formatted = target;
+              if (Math.abs(v.id - p.id) == 1) {
+                formatted += 'b';
+              }              
+            }
+          }              
+        }
+        
+        v.formatted = formatted;
+        
         return v;
       });      
   }
 
-  
   return reOrdNotes;
 };
 
