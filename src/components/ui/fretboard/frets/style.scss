@@ -1,0 +1,16 @@
+@import '../../variables';
+
+.frets {
+  height: 100%;
+  width: 100%;
+  border: 1px solid $carbon;
+  position: relative;
+
+  .fret {
+    height: 2px;
+    width: 100%;
+    background-color: $carbon;
+    position: absolute;
+    left: 0;
+  }
+}

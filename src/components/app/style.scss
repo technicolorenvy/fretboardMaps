@@ -1,25 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Work+Sans&display=swap');
 @import './reset';
-
-$headerHeight: 82px;
-$footerHeight: 56px;
-$padding: 20px;
-$borderHeight: 1px;
-
-
-// $red: #fc4445;
-// $blue-1: #3feee6;
-// $blue-2: #55bcc9;
-// $blue-3: #97caef;
-// $blue-4: #cafafe;
-
-$white: #ffffff;
-$black: #333333;
-$sky: #caebf2;
-$carbon: #a9a9a9;
-$watermelon: #ff3b3f;
-$neutral: #efefef;
-
+@import '../ui/variables';
 
 body {
   font-family: 'Roboto', sans-serif;
