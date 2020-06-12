@@ -33,6 +33,19 @@ header {
 .content {
   height: calc(100vh - #{$headerHeight + $footerHeight + ($padding * 2) - $borderHeight});
   padding: $padding;
+  display: flex;
+
+  .left,
+  .right {
+    height: 100%;
+    width: calc(50% - #{$padding});
+  }
+  .left  {
+    padding-right: $padding;
+  }
+  .right  {
+    padding-left: $padding;
+  }  
 }
 
 footer {

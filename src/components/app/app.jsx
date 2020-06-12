@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import mapStateToProps from './map-state-to-props'
+import mapDispatchToProps from './map-dispatch-to-props'
 import {
   Form,
   Fretboard
@@ -6,24 +9,31 @@ import {
 
 import './style.scss';
 
-function App() {
-  return (
-    <div className="app">
-      <header>
-        <h1>Fretboard Maps</h1>
-      </header>
-      <div className="content">
+class App extends Component {
 
-        <Fretboard/>
-        <Form/>
+  render() {
+    console.log(this.props)
+    return (
+      <div className="app">
+        <header>
+          <h1>Fretboard Maps</h1>
+        </header>
+        <section className="content">
+          <section className="left">
+            <Fretboard/>
+          </section>
+          <section className="right">
+            <Form/>
+          </section>
+        </section>
+        <footer>
+          <p>
+            Written by Joseph (Jos) Smith. Code on <a href="https://github.com/technicolorenvy/fretboardMaps">Github</a>.        
+          </p>
+        </footer>
       </div>
-      <footer>
-        <p>
-          Written by Joseph (Jos) Smith. Code on <a href="https://github.com/technicolorenvy/fretboardMaps">Github</a>.        
-        </p>
-      </footer>
-    </div>
-  );
+    );
+  }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

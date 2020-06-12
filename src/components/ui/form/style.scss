@@ -1,0 +1,21 @@
+@import '../variables';
+
+.form {
+  width: 100%;
+
+  select {
+    width: 75%;
+    font-size: 30px;
+    margin-bottom: $padding;
+    
+    &:invalid,
+    [disabled] {
+      color: $carbon;
+    }
+   
+    option {
+      padding: $padding;
+
+    }
+  }
+}
