@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-const KEYS = ['a', 'b', 'c'];
-const COLORS = ['major', 'minor'];
-const INSTRUMENTS = ['guitar', 'bass', 'banjo', 'mandolin', 'custom'];
-
 class Form extends Component {
 
   constructor(props) {
@@ -38,7 +34,7 @@ class Form extends Component {
           <option value='' selected="true" disabled="disabled">
             Choose a key
           </option>
-          {KEYS.map(v => {
+          {this.props.supportedKeys.map(v => {
             return (
               <option key={v} value={v}>
                 {v}
@@ -53,12 +49,12 @@ class Form extends Component {
           value={this.state.activeColor}
         >
           <option value='' selected="true" disabled="disabled">
-            Choose a scale color
+            Choose a scale
           </option>          
-          {COLORS.map(v => {
+          {this.props.scales.map(v => {
             return (
-              <option key={v} value={v}>
-                {v}
+              <option key={v.id} value={v.id}>
+                {v.id}
               </option>
             );
           })}
@@ -72,7 +68,7 @@ class Form extends Component {
         <option value='' selected="true" disabled="disabled">
             Choose an instrument
           </option>           
-          {INSTRUMENTS.map(v => {
+          {this.props.instruments.map(v => {
             return (
               <option key={v} value={v}>
                 {v}

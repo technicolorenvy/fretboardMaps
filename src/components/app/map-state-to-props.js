@@ -1,6 +1,10 @@
 let mapStateToProps = (state) => {
   return {
-    foo: state.fretboard.foo
+    frets: state.fretboard.frets,
+    instruments: state.fretboard.instruments,
+    supportedKeys: state.fretboard.supportedKeys,
+    alpha: state.fretboard.alpha,
+    scales: state.fretboard.scales    
   }
 };
 

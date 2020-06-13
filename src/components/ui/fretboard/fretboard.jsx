@@ -3,7 +3,6 @@ import Frets from './frets/frets';
 import InstrumentString from './instrument-string/instrument-string';
 import './style.scss';
 
-const FRET_COUNT = 12;
 const STRINGS_MOCK = [ 'g','d','g','b','d' ];
 
 class Fretboard extends Component {
@@ -11,7 +10,7 @@ class Fretboard extends Component {
     return (
       <div className="fretboard">
         <Frets
-          count={FRET_COUNT}
+          count={this.props.frets}
         />
         <div className="instrument-strings">
           {STRINGS_MOCK.map((n,i) => {

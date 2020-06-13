@@ -1,13 +1,17 @@
-import alpha from '../data/alpha.json';
-import degrees from '../data/scale-degrees.json';
+import app from '../data/app.json';
 import notes from '../data/notes.json';
 
 const IS_NATURAL_REGEX = /b|#/;
 
-const stubKey = 'Db';
-const stubColor = 'major';
-
 class FretboardService {
+
+  constructor() {
+    this.frets = app.frets;
+    this.instruments = app.instruments;
+    this.supportedKeys = app.supportedKeys;
+    this.alpha = app.alpha;
+    this.scales = app.scales;
+  }
 
   reOrgArray = (cutIdx, arr) => {
     let p1 = arr.slice(0, cutIdx),
@@ -23,7 +27,7 @@ class FretboardService {
         reOrdAlpha,
         reOrdNotes = [];
   
-    scale = degrees[color];
+    scale = this.scales.filter(v => v.id === color)[0];
     nattyCheck = cKey.match(IS_NATURAL_REGEX);
     isNatural = !nattyCheck;
     root = notes
@@ -34,10 +38,10 @@ class FretboardService {
     if (!root)  { console.warn(`The key "${cKey}" was not found`); }
     
     if (scale && root) { 
-      reOrdAlpha = this.reOrgArray(alpha.indexOf(cKey[0]), alpha);
+      reOrdAlpha = this.reOrgArray(this.alpha.indexOf(cKey[0]), this.alpha);
       reOrdNotes = this.reOrgArray(root.id, notes)
         .filter((v, i) => {
-          return !!~scale.indexOf(i+1);
+          return !!~scale.notes.indexOf(i+1);
         });
       reOrdNotes      
         .map((v, i) => {
