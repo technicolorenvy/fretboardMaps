@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-
-import scaleReducer from './scale';
+import fretboardService from '../../services/fretboard'
+import fretboardReducer from './fretboard';
 
 export default combineReducers({
-  scale: scaleReducer()
+  fretboard: fretboardReducer({ fretboardService })
 });

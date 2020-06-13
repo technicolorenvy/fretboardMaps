@@ -1,13 +1,13 @@
-import alpha from './alpha.json';
-import degrees from './scale-degrees.json';
-import notes from './notes.json';
+import alpha from '../data/alpha.json';
+import degrees from '../data/scale-degrees.json';
+import notes from '../data/notes.json';
 
 const IS_NATURAL_REGEX = /b|#/;
 
 const stubKey = 'Db';
 const stubColor = 'major';
 
-class ScaleService {
+class FretboardService {
 
   reOrgArray = (cutIdx, arr) => {
     let p1 = arr.slice(0, cutIdx),
@@ -34,8 +34,8 @@ class ScaleService {
     if (!root)  { console.warn(`The key "${cKey}" was not found`); }
     
     if (scale && root) { 
-      reOrdAlpha = reOrgArray(alpha.indexOf(cKey[0]), alpha);
-      reOrdNotes = reOrgArray(root.id, notes)
+      reOrdAlpha = this.reOrgArray(alpha.indexOf(cKey[0]), alpha);
+      reOrdNotes = this.reOrgArray(root.id, notes)
         .filter((v, i) => {
           return !!~scale.indexOf(i+1);
         });
@@ -97,5 +97,5 @@ class ScaleService {
   }
 }
 
-const instance = ScaleService();
+const instance = new FretboardService();
 export default instance;

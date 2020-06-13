@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-
 const KEYS = ['a', 'b', 'c'];
 const COLORS = ['major', 'minor'];
-const INSTRUMENTS = ['guitar', 'bass', 'banjo', 'mandolin'];
+const INSTRUMENTS = ['guitar', 'bass', 'banjo', 'mandolin', 'custom'];
 
 class Form extends Component {
 
-  onSelectUpdate = () => {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      key: '',
+      color: '',
+      instrument: ''
+    };
+  }
+
+  onSelectUpdate = (e) => {
+    let newState = {},
+        { name, value } = e.currentTarget;        
+    newState[name] = value;
+    this.setState(newState, () => {
+      this.props.updateFretboard(this.state);
+    });
   } 
 
   render() {
@@ -17,8 +31,9 @@ class Form extends Component {
       <div className="form">
         <select 
           required 
-          name="keys"
+          name="key"
           onChange={this.onSelectUpdate}
+          value={this.state.activeKey}
         >
           <option value='' selected="true" disabled="disabled">
             Choose a key
@@ -33,8 +48,9 @@ class Form extends Component {
         </select>
         <select 
           required 
-          name="colors"
+          name="color"
           onChange={this.onSelectUpdate}
+          value={this.state.activeColor}
         >
           <option value='' selected="true" disabled="disabled">
             Choose a scale color
@@ -49,8 +65,9 @@ class Form extends Component {
         </select>   
         <select 
           required 
-          name="instruments"
+          name="instrument"
           onChange={this.onSelectUpdate}
+          value={this.state.activeColor}
         >
         <option value='' selected="true" disabled="disabled">
             Choose an instrument

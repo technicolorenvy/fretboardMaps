@@ -1,6 +1,6 @@
 let mapStateToProps = (state) => {
   return {
-    foo: state.scale.foo
+    foo: state.fretboard.foo
   }
 };
 

@@ -2,14 +2,21 @@ const DEFAULT_VALUES = {
   foo: 'bar'
 }
 
-let scaleReducer = () => {
+let scaleReducer = (services) => {
+  let { fretboardService } = services;
+
   return (state=DEFAULT_VALUES, action) => {
     switch(action.type) {
-      case 'THING':
+      case 'UPDATE_FRETBOARD':
         return {
           ...state,
-          foo: 'thing'
+          foo: 'FLURP!'
         }
+      case 'TUNE_STRING':
+        return {
+          ...state,
+          foo: 'zip!'
+        }        
       default:
         return {
           ...state

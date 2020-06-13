@@ -12,7 +12,6 @@ import './style.scss';
 class App extends Component {
 
   render() {
-    console.log(this.props)
     return (
       <div className="app">
         <header>
@@ -20,10 +19,14 @@ class App extends Component {
         </header>
         <section className="content">
           <section className="left">
-            <Fretboard/>
+            <Fretboard 
+              {...this.props}
+            />            
           </section>
           <section className="right">
-            <Form/>
+            <Form 
+              {...this.props}
+            />
           </section>
         </section>
         <footer>

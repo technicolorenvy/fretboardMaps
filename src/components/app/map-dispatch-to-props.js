@@ -2,9 +2,12 @@ import actions from '../../redux/actions';
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    doBar: (params) => {
-      dispatch(actions.doBar(params));
-    }
+    updateFretboard: (params) => {
+      dispatch(actions.updateFretboard(params));
+    },
+    tuneString: (params) => {
+      dispatch(actions.tuneString(params));
+    }    
   }
 };
 
