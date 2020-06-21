@@ -1,0 +1,23 @@
+{
+  "id": "bass",
+  "types": [
+    {
+      "name": 4,
+      "strings": [
+        "E", "A", "D", "G"
+      ]
+    },
+    {
+      "name": 5,
+      "strings": [
+        "B", "E", "A", "D", "G"
+      ]
+    },
+    {
+      "name": 6,
+      "strings": [
+        "B", "E", "A", "D", "G", "B"
+      ]
+    }    
+  ]
+}

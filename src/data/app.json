@@ -1,12 +1,5 @@
 {
   "frets": 12,
-  "instruments": [
-    "guitar",
-    "bass",
-    "banjo",
-    "mandolin",
-    "custom"
-  ],
   "alpha": [ "A","B","C","D","E","F","G" ],
   "supportedKeys": [
     "A",
@@ -20,9 +13,14 @@
     "F",
     "Gb",
     "G",
-    "Ab",
-    "A"
+    "Ab"
   ],
+  "instruments": [
+    "guitar",
+    "bass",
+    "banjo",
+    "mandolin"
+  ],  
   "scales": [
     {
       "id": "major",

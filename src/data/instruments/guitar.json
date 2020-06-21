@@ -1,0 +1,11 @@
+{
+  "id": "guitar",
+  "types": [
+    {
+      "name": 6,
+      "strings": [
+        "E", "A", "D", "G", "B", "E"
+      ]
+    }
+  ]
+}

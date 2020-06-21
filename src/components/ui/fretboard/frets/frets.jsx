@@ -18,7 +18,6 @@ class Fretboard extends Component {
     for (let i = 1; i < fretCount; i++) {
       this.frets.push(i);
     }
-    console.log(this.frets)
   }
 
   render() {

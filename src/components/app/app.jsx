@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import bootstrapper from '../../bootstrap';
+import builderService from '../../services/builder';
+import fretboardService from '../../services/fretboard';
+
 import mapStateToProps from './map-state-to-props'
 import mapDispatchToProps from './map-dispatch-to-props'
+
 import {
   Form,
   Fretboard
@@ -11,6 +17,14 @@ import './style.scss';
 
 class App extends Component {
 
+  componentDidMount() {
+    this.props.bootstrap({
+      bootstrapper,
+      builderService,
+      fretboardService  
+    });
+  }
+
   render() {
     return (
       <div className="app">
@@ -19,14 +33,13 @@ class App extends Component {
         </header>
         <section className="content">
           <section className="left">
-            <Fretboard 
-              {...this.props}
-            />            
+            <Fretboard {...this.props} />            
           </section>
           <section className="right">
-            <Form 
-              {...this.props}
-            />
+            {this.props.bootstrapped 
+              ? <Form {...this.props} />
+              : <></>
+            } 
           </section>
         </section>
         <footer>

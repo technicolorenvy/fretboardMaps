@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import builderService from '../../services/builder'
 import fretboardService from '../../services/fretboard'
-import fretboardReducer from './fretboard';
+import appReducer from './app';
 
 export default combineReducers({
-  fretboard: fretboardReducer({ fretboardService })
+  app: appReducer({ builderService, fretboardService })
 });

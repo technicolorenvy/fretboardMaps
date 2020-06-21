@@ -27,6 +27,30 @@ class Form extends Component {
       <div className="form">
         <select 
           required 
+          name="instrument"
+          onChange={this.onSelectUpdate}
+          value={this.state.activeColor}
+        >
+        <option value='' selected="true" disabled="disabled">
+            Choose an instrument
+          </option>           
+          {this.props.instruments.map(instrument => {
+            // instrument.
+            return (
+              <optgroup key={instrument.id} label={instrument.id}>
+                {instrument.types.map(iType => {
+                  return (
+                    <option key={`${instrument.id}-${iType.name}`} value={`${instrument.id}.${iType.name}`}>
+                      {instrument.id} {iType.name} string
+                    </option>
+                  )
+                })}
+              </optgroup>
+            );
+          })}
+        </select>         
+        <select 
+          required 
           name="key"
           onChange={this.onSelectUpdate}
           value={this.state.activeKey}
@@ -58,24 +82,7 @@ class Form extends Component {
               </option>
             );
           })}
-        </select>   
-        <select 
-          required 
-          name="instrument"
-          onChange={this.onSelectUpdate}
-          value={this.state.activeColor}
-        >
-        <option value='' selected="true" disabled="disabled">
-            Choose an instrument
-          </option>           
-          {this.props.instruments.map(v => {
-            return (
-              <option key={v} value={v}>
-                {v}
-              </option>
-            );
-          })}
-        </select>              
+        </select>                
       </div>
     );
   }

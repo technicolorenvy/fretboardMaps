@@ -1,0 +1,11 @@
+{
+  "id": "mandolin",
+  "types": [
+    {
+      "name": 4,
+      "strings": [
+        "G", "D", "A", "E"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "banjo",
+  "types": [
+    {
+      "name": 4,
+      "strings": [
+        "G", "D", "A", "E"
+      ]
+    },
+    {
+      "name": 5,
+      "strings": [
+        "G", "D", "G", "B", "D"
+      ]
+    }    
+  ]
+}
