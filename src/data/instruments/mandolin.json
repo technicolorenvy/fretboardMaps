@@ -2,7 +2,8 @@
   "id": "mandolin",
   "types": [
     {
-      "name": 4,
+      "id": "mandolin-4",
+      "name": "4 string mandolin",
       "strings": [
         "G", "D", "A", "E"
       ]

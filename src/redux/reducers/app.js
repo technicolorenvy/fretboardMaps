@@ -1,15 +1,18 @@
 let appReducer = (services) => {
-  let { builderService, fretboardService } = services;
+  let { fretboardService } = services;
   
   const DEFAULT_VALUES = {
     bootstrapped: false,
     bootstrapping: false,
     bootstrapError: null,    
     frets: fretboardService.frets,
-    instruments: [],
     supportedKeys: fretboardService.supportedKeys,
     alpha: fretboardService.alpha,
-    scales: fretboardService.scales
+    scales: fretboardService.scales,
+    instruments: [],
+    activeInstrument: null,
+    activeKey: null,
+    activeScale: null
   }
 
   return (state=DEFAULT_VALUES, action) => {
@@ -24,7 +27,10 @@ let appReducer = (services) => {
           ...state,
           bootstrapping: false,
           bootstrapped: true,
-          instruments: builderService.instruments
+          instruments: fretboardService.instruments,
+          activeKey: fretboardService.activeKey,
+          activeInstrument: fretboardService.getActiveInstrument(),
+          activeScale: fretboardService.getActiveScale()
         };
       case 'BOOTSTRAP_FAIL':
         console.error('BOOTSTRAP_FAIL', action.error);
@@ -33,6 +39,24 @@ let appReducer = (services) => {
           bootstrapping: false,
           bootstrapError: action.error
         };      
+      case 'SET_ACTIVE_INSTRUMENT':
+        fretboardService.activeInstrumentId = action.instrumentId;
+        return {
+          ...state,
+          activeInstrument: fretboardService.getActiveInstrument()
+        }  
+      case 'SET_ACTIVE_KEY':
+        fretboardService.activeKey = action.key;
+        return {
+          ...state,
+          activeKey: fretboardService.activeKey
+        }  
+      case 'SET_ACTIVE_SCALE':
+        fretboardService.scaleId = action.scale;
+        return {
+          ...state,
+          activeScale: fretboardService.getActiveScale()
+        }                      
       case 'UPDATE_FRETBOARD':
         return {
           ...state,

@@ -1,20 +1,23 @@
 {
   "id": "bass",
   "types": [
-    {
-      "name": 4,
+    { 
+      "id": "bass-4",
+      "name": "4 string bass",
       "strings": [
         "E", "A", "D", "G"
       ]
     },
     {
-      "name": 5,
+      "id": "bass-5",
+      "name": "5 string bass",
       "strings": [
         "B", "E", "A", "D", "G"
       ]
     },
     {
-      "name": 6,
+      "id": "bass-6",
+      "name": "6 string bass",
       "strings": [
         "B", "E", "A", "D", "G", "B"
       ]

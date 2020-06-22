@@ -1,3 +1,5 @@
+import { parallel } from 'async-es';
+
 import app from '../data/app.json';
 import notes from '../data/notes.json';
 
@@ -7,10 +9,57 @@ class FretboardService {
 
   constructor() {
     this.frets = app.frets;
-    this.instruments = app.instruments;
     this.supportedKeys = app.supportedKeys;
     this.alpha = app.alpha;
     this.scales = app.scales;
+    this.instruments = [];
+    this.activeInstrumentId = app.defaultInstrument;
+    this.activeKey = app.defaultKey;
+    this.activeScaleId = app.defaultScale;
+  }
+
+  /**
+   * Import all instrument configs
+   */
+  importInstruments() {
+    let instruments = {},
+        _instruments = {};
+    
+    // Create the import fns
+    app.instruments.forEach((instrument) => {
+      instruments[instrument] = (callback) => {
+        import(`../data/instruments/${instrument}`).then( res => callback(null, res) ); 
+      }  
+    })
+
+    return new Promise((resolve) => {
+      // Fetch all the things
+      parallel(instruments, (innerErr, innerRes) => {
+        Object.keys(innerRes).forEach(v => {
+          _instruments[v] = innerRes[v].default;
+        })
+        this.instruments = app.instruments.map(instrument => _instruments[instrument]);   
+        resolve();
+      })
+    });
+  }
+
+  getInstrumentCategory(str) {
+    return str.split('-')[0];
+  }
+
+  getActiveInstrument = () => {
+    let instrument,
+        type;
+    instrument = this.instruments
+      .find(v => v.id === this.getInstrumentCategory(this.activeInstrumentId));
+    type = instrument.types
+      .find(v => v.id === this.activeInstrumentId);
+    return type;
+  }
+
+  getActiveScale = () => {
+    return this.scales.find(v => v.id === this.activeScaleId);
   }
 
   reOrgArray = (cutIdx, arr) => {
@@ -19,7 +68,7 @@ class FretboardService {
     return p2.concat(p1);
   }
   
-  getKey = (cKey, color) => {
+  getKey = (cKey, scaleId) => {
     let isNatural,
         nattyCheck,
         root,
@@ -27,14 +76,14 @@ class FretboardService {
         reOrdAlpha,
         reOrdNotes = [];
   
-    scale = this.scales.filter(v => v.id === color)[0];
+    scale = this.scales.filter(v => v.id === scaleId)[0];
     nattyCheck = cKey.match(IS_NATURAL_REGEX);
     isNatural = !nattyCheck;
     root = notes
       .filter((v) => (isNatural) ? cKey === v.title : !!~v.title.indexOf(cKey))
       [0];
     
-    if (!scale) { console.warn(`The scale name "${color}" was not found`); }
+    if (!scale) { console.warn(`The scale name "${scaleId}" was not found`); }
     if (!root)  { console.warn(`The key "${cKey}" was not found`); }
     
     if (scale && root) { 
@@ -78,13 +127,13 @@ class FretboardService {
             // determine if we have already used a given note 
             if (p.title === `${p.formatted}/${formatted}`) {
               formatted = target;
-              if (Math.abs(v.id - p.id) == 2) {
+              if (Math.abs(v.id - p.id) === 2) {
                 formatted += '#';
               }
             } else {
               if (!t.title.match(target)) {
                 formatted = target;
-                if (Math.abs(v.id - p.id) == 1) {
+                if (Math.abs(v.id - p.id) === 1) {
                   formatted += 'b';
                 }              
               }
@@ -98,7 +147,7 @@ class FretboardService {
     }
   
     return reOrdNotes;
-  }
+  }  
 }
 
 const instance = new FretboardService();

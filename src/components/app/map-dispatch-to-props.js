@@ -2,9 +2,18 @@ import actions from '../../redux/actions';
 
 let mapDispatchToProps = (dispatch) => {
   return {
-    bootstrap: (ob) => {
-      dispatch(actions.bootstrap(ob));
+    bootstrap: (params) => {
+      dispatch(actions.bootstrap(params));
     },    
+    setActiveInstrument: (instrumentId) => {
+      dispatch(actions.setActiveInstrument(instrumentId));
+    },
+    setActiveKey: (key) => {
+      dispatch(actions.setActiveKey(key));
+    },
+    setActiveScale: (scaleId) => {
+      dispatch(actions.setActiveScale(scaleId));
+    },
     updateFretboard: (params) => {
       dispatch(actions.updateFretboard(params));
     },

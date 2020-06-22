@@ -3,24 +3,17 @@ import './style.scss';
 
 class Form extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      key: '',
-      color: '',
-      instrument: ''
-    };
+  onInstrumentUpdate = (e) => {
+    this.props.setActiveInstrument(e.currentTarget.value);
   }
 
-  onSelectUpdate = (e) => {
-    let newState = {},
-        { name, value } = e.currentTarget;        
-    newState[name] = value;
-    this.setState(newState, () => {
-      this.props.updateFretboard(this.state);
-    });
-  } 
+  onKeyUpdate = (e) => {
+    this.props.setActiveKey(e.currentTarget.value);
+  }
+
+  onScaleUpdate = (e) => {
+    this.props.setActiveScale(e.currentTarget.value);
+  }
 
   render() {
     return (
@@ -28,20 +21,22 @@ class Form extends Component {
         <select 
           required 
           name="instrument"
-          onChange={this.onSelectUpdate}
-          value={this.state.activeColor}
+          onChange={this.onInstrumentUpdate}
         >
-        <option value='' selected="true" disabled="disabled">
+        <option value='' disabled="disabled">
             Choose an instrument
           </option>           
           {this.props.instruments.map(instrument => {
-            // instrument.
             return (
               <optgroup key={instrument.id} label={instrument.id}>
                 {instrument.types.map(iType => {
                   return (
-                    <option key={`${instrument.id}-${iType.name}`} value={`${instrument.id}.${iType.name}`}>
-                      {instrument.id} {iType.name} string
+                    <option 
+                      key={iType.id} 
+                      value={iType.id}
+                      defaultValue={iType.id === this.props.activeInstrument.id}
+                    >
+                      {iType.name}
                     </option>
                   )
                 })}
@@ -52,15 +47,18 @@ class Form extends Component {
         <select 
           required 
           name="key"
-          onChange={this.onSelectUpdate}
-          value={this.state.activeKey}
+          onChange={this.onKeyUpdate}
         >
-          <option value='' selected="true" disabled="disabled">
+          <option value='' disabled="disabled">
             Choose a key
           </option>
           {this.props.supportedKeys.map(v => {
             return (
-              <option key={v} value={v}>
+              <option 
+                key={v} 
+                value={v}
+                defaultValue={v === this.props.activeKey}
+              >
                 {v}
               </option>
             );
@@ -68,16 +66,19 @@ class Form extends Component {
         </select>
         <select 
           required 
-          name="color"
-          onChange={this.onSelectUpdate}
-          value={this.state.activeColor}
+          name="scale"
+          onChange={this.onScaleUpdate}
         >
-          <option value='' selected="true" disabled="disabled">
+          <option value='' disabled="disabled">
             Choose a scale
           </option>          
           {this.props.scales.map(v => {
             return (
-              <option key={v.id} value={v.id}>
+              <option 
+                key={v.id} 
+                value={v.id}
+                defaultValue={v.id === this.props.activeScale.id}
+              >
                 {v.id}
               </option>
             );

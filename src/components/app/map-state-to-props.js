@@ -5,6 +5,9 @@ let mapStateToProps = (state) => {
     bootstrapError: state.app.bootstrapError,    
     frets: state.app.frets,
     instruments: state.app.instruments,
+    activeInstrument: state.app.activeInstrument,
+    activeKey: state.app.activeKey,
+    activeScale: state.app.activeScale,
     supportedKeys: state.app.supportedKeys,
     alpha: state.app.alpha,
     scales: state.app.scales    

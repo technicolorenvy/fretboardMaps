@@ -1,11 +1,8 @@
 let bootstrap = (ob) => {
-  const {
-    builderService,
-    fretboardService
-  } = ob;
+  const { fretboardService } = ob;
 
  return new Promise((resolve) => {
-  builderService.importInstruments()
+  fretboardService.importInstruments()
     .then(() => {
       resolve();
     })

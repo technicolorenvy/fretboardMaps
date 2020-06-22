@@ -2,13 +2,15 @@
   "id": "banjo",
   "types": [
     {
-      "name": 4,
+      "id": "banjo-4",
+      "name": "4 string banjo",
       "strings": [
         "G", "D", "A", "E"
       ]
     },
     {
-      "name": 5,
+      "id": "banjo-5",
+      "name": "5 string banjo",
       "strings": [
         "G", "D", "G", "B", "D"
       ]

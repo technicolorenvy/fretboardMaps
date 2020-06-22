@@ -79,6 +79,27 @@ class Actions {
     };
   }
 
+  setActiveInstrument(instrumentId) {
+    return {
+      type: 'SET_ACTIVE_INSTRUMENT',
+      instrumentId
+    };
+  }
+  
+  setActiveKey(key) {
+    return {
+      type: 'SET_ACTIVE_KEY',
+      key
+    };
+  }
+
+  setActiveScale(scaleId) {
+    return {
+      type: 'SET_ACTIVE_SCALE',
+      scaleId
+    };
+  }
+
   updateFretboard(params) {
     return {
       type: 'UPDATE_FRETBOARD',

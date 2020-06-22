@@ -2,7 +2,8 @@
   "id": "guitar",
   "types": [
     {
-      "name": 6,
+      "id": "guitar-6",
+      "name": "6 string guitar",
       "strings": [
         "E", "A", "D", "G", "B", "E"
       ]

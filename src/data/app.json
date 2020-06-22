@@ -1,5 +1,8 @@
 {
   "frets": 12,
+  "defaultInstrument": "guitar-6",
+  "defaultKey": "G",
+  "defaultScale": "major",
   "alpha": [ "A","B","C","D","E","F","G" ],
   "supportedKeys": [
     "A",
